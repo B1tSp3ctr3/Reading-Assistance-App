@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "reading-assistance-app",
+  "private_key_id": "08984f72ce03636eaec1a718bb8a203ffbbb5f2c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDWJ7nTks/yKd0R\nTn133G/inkgwkWjfzBQP+Y0kj9nq2BpGcWSjnf457BeQMR1jYOrcHAZ55eK8Zqxj\nni2harfkIAON1EkAYfO9OEw8FR1PR9wZivq1nvKqopExeVLdAsNZqYdXCvtfNVRt\n0utuPEUqbzX1wm4wrpjmG1gnDtTxh7gH8wnSes21KRlmgxTuVOyCuDYio+gei9kf\nvPFz/cbiP0BSw+067lA5DT48vGvAkTW3i69jH5mnbZtOyvi2wvScYxeyRJ6naq9e\n8Gqhci6xP8IZOMjNpDFka6+TyMiQiqjzVRbOIB0zT1LNCf2ql2NUekO9iw+h8EQH\nSPFJKthdAgMBAAECggEACasV9+ARLMrojNs5DWQBlh7UvgKWlEH7puP6lAu9iB11\nBDii1UMxAs7ummcpPz8VI1ZNkYvIIn7VKhMuVrMBddZfKrRKjm6dqS2FPZIrdlSV\ncn7EhlYUeREpUm06iTlSdfYSIuMfSaNX+jRTRjEI41tNeZirTl3Xj83suyivgu7r\nOnWmGU5/n27BTjADrNhcak7Ffpyfw6z+sH0n29j1PPrNxvGI7rI6p5NRfjOexWt/\nqiMHgsNGLc781rPgq97fC+T7WSJHfJjymr/i0Sh76+b9FBV6c1yJdfgCflWJFUL5\nvkx6nrnCVwnH5SnB9fLVPwIB9F58H+6YggWr3xdGKQKBgQD3qK/du2vK+QQ8yZFO\nr7mtBkrxsFFq8hwVmsXNI+3mJe6D1v6elguVHLugn28+g4o1qo7XDaVy7YFBPIQo\nyqGNDbpVdLIGGVe0JxJ0zBp8W0mSriQDcv9kxIV2KtIEKVIiTP5bz19xk0/U1Clz\ntzDGHL+XsCG2yCGCm99F4PVS+QKBgQDdXit7QzLWWsXcSycKi4Wz7nKxMcmTtWFN\n755RSGYiSD245JwRbkEIQ0c0kuMlJR+m5g6iZ59RZYb6NYQaYCd34xpt08mHEP05\nlZKBppgVoXt/S12TubC7tXe81JMOfAZG/QP/9TlSMwiPpjwBLuzF2qFNbbH70vmR\naSXNK+7lhQKBgFvLL1wtEpgJ0lNBltUmdti142NPqe3MzTIIytXtQkkyuAQv1PIs\nxSBApR602YO/N6QKkqUNDszZUTY/2vBPoq9obi8scKuoCwTgEowt9ocvQsbWOsz4\ne8b6vEj/OBaIxkOmbATViRfMtSM6fB7CwJY9o5nyk5xu81S4t3nsFqHpAoGAITJS\nCvYU1ZhfO535iNdLgaQshu4UcJYutWVNtJrK1jFHMEb4MJT8I6UTNIsijRt4F6tA\nXpJzjd1P1I3Z9aqdwJjKCdZMznh5wPzxL4gwHm5M+tXufozGOCAKiMLIGs/2kQa4\nZtX7dpw4mHIxZWwIDdOvhNECc+U7j9bY2F/SP5ECgYEAkwzbTf4L0Pgbnzoyib0i\nHtAvzhaQdglw4fs+Ack4WnpP/9xu4BGh1Z+VWvAm+GZCrI5oS/z2VOd/vRXmDI3u\nT0WfqM/d5Aktqrbmk1lXtT3tb+Q6EtZGIuQal7SaRF6nx/Lu3geydqIuRE5kguF1\nQbGxDoueO9XfadVOx47NNmY=\n-----END PRIVATE KEY-----\n",
+  "client_email": "anirudh@reading-assistance-app.iam.gserviceaccount.com",
+  "client_id": "105371905016248905380",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/anirudh%40reading-assistance-app.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
