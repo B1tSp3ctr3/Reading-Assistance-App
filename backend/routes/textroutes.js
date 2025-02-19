@@ -14,8 +14,8 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({storage});
-router.post("/recognize", upload.single("image"), recognizeText);
+router.post("/recognize", upload.array("images",10), recognizeText);
 
 
 export default router;
-//hh
+//
