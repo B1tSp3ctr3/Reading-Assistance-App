@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import React from "react";
 import { View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
 
@@ -9,11 +9,18 @@ import Icon from "../components/Icon";
 import colors from "../config/colors";
 import ListItemSeparator from "../components/ListItemSeparator";
 import useApi from "../hooks/useApi";
-import listingsApi from "../api/listings";
+import { getListings } from "../api/listings";
 import { getAudio } from "../api/tts";
+import { useNavigationSearch } from "../hooks/useNavigationSearch";
+import { titleFilter } from "../helpers/filter";
 function Home({ navigation }) {
+    const search = useNavigationSearch({
+        searchBarOptions: {
+            placeholder: "Search documents...",
+        },
+    });
     const [refreshing, setRefreshing] = useState(false);
-    const getListingsApi = useApi(listingsApi.getListings);
+    const getListingsApi = useApi(getListings);
     const getAudioApi = useApi(getAudio);
     useEffect(() => {
         const unsubscribeFocus = navigation.addListener("focus", () => {
@@ -37,6 +44,11 @@ function Home({ navigation }) {
 
         setRefreshing(false);
     };
+    const filteredListings = useMemo(() => {
+        if (!getListingsApi.data || !getListingsApi.data.texts) return [];
+        if (!search) return getListingsApi.data.texts;
+        return getListingsApi.data.texts.filter(titleFilter(search));
+    }, [search, getListingsApi.data]);
 
     return (
         <View style={styles.container}>
@@ -46,14 +58,16 @@ function Home({ navigation }) {
             {getListingsApi.error ? (
                 <>
                     <Text>Could not retrieve the listings.</Text>
-                    <Button title="Retry" onPress={getListingsApi.request} />
+                    <View style={styles.reload}>
+                        <Button title="Retry" onPress={getListingsApi.request} />
+                    </View>
                 </>
             ) : null}
             <FlatList
                 contentContainerStyle={{ paddingTop: 10, paddingBottom: 128 }}
                 ListFooterComponent={ListItemSeparator}
                 ListHeaderComponent={ListItemSeparator}
-                data={getListingsApi.data.texts}
+                data={filteredListings}
                 keyExtractor={(item) => item._id}
                 renderItem={({ item }) => (
                     <ListItem
@@ -84,6 +98,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors.secondary,
+    },
+    reload: {
+        flex: 1,
+        width: "80%",
+        alignSelf: "center",
+        top: 10,
     },
 });
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Image, TouchableHighlight} from "react-native";
+import { View, StyleSheet, Image, TouchableHighlight } from "react-native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
 import colors from "../config/colors";
@@ -13,29 +13,29 @@ function ListItem({
     ImageInput,
     onPress,
 }) {
-    isActive=false;
+    isActive = false;
     return (
         <TouchableHighlight onPress={onPress}>
-        <View style={styles.container}>
-        {IconComponent}
-        {ImageInput}
-        {image && <Image style={styles.image} source={image} />}
-        <View style={styles.subcontainer}>
-        <AppText style={styles.title} numberOfLines={1}>
-        {title}
-        </AppText>
-        {subtitle ? (
-            <AppText style={styles.subtitle} numberOfLines={2}>
-            {subtitle}
-            </AppText>
-        ) : null}
-        </View>
-        <FontAwesome5
-        name={"ellipsis-v"}
-        size={20}
-        color= {isActive ?  colors.primary  :  colors.mediumgrey}  
-        />
-        </View>
+            <View style={styles.container}>
+                {IconComponent}
+                {ImageInput}
+                {image && <Image style={styles.image} source={image} />}
+                <View style={styles.subcontainer}>
+                    <AppText style={styles.title} numberOfLines={1}>
+                        {title}
+                    </AppText>
+                    {subtitle ? (
+                        <AppText style={styles.subtitle} numberOfLines={2}>
+                            {subtitle}
+                        </AppText>
+                    ) : null}
+                </View>
+                <FontAwesome5
+                    name={"ellipsis-v"}
+                    size={20}
+                    color={isActive ? colors.primary : colors.mediumgrey}
+                />
+            </View>
         </TouchableHighlight>
     );
 }
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         padding: 10,
-        backgroundColor: "#131315",
+        backgroundColor: colors.secondary,
         alignItems: "center",
     },
     subcontainer: {
@@ -55,19 +55,19 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 
-  title: {
-    fontWeight: "bold",
-    fontSize: 19,
-  },
-  subtitle: {
-    color: colors.mediumgrey,
-    fontSize: 17,
-    textAlign: "left",
-  },
-  image: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-  },
+    title: {
+        fontWeight: "bold",
+        fontSize: 19,
+    },
+    subtitle: {
+        color: colors.mediumgrey,
+        fontSize: 17,
+        textAlign: "left",
+    },
+    image: {
+        width: 70,
+        height: 70,
+        borderRadius: 35,
+    },
 });
 export default ListItem;
