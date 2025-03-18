@@ -1,6 +1,6 @@
 import client from "./client";
 
-const textEndpoint = "audios/convert/"; // Endpoint to post text
+const textEndpoint = "tts/speak"; // Endpoint to post text
 const speechEndpoint = "audio/audio/"; // Endpoint to get audio
 
 export const tts = (textData) => {

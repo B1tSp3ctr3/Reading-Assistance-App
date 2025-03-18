@@ -1,4 +1,5 @@
 import { FontAwesome6 } from "@expo/vector-icons";
+import React from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import TrackPlayer, { useIsPlaying } from "react-native-track-player";
 import colors from "../config/colors";

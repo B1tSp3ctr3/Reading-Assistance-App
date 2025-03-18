@@ -5,8 +5,15 @@ const setupPlayer = async () => {
     await TrackPlayer.setupPlayer({
         maxCacheSize: 1024 * 10,
     });
-    await TrackPlayer.setVolume(0.3);
+    await TrackPlayer.setVolume(0.8);
     await TrackPlayer.setRepeatMode(RepeatMode.Queue);
+    await TrackPlayer.add({
+        id: "track1",
+        url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+        title: "SoundHelix Song 1",
+        artist: "SoundHelix",
+    });
+    await TrackPlayer.play();
 };
 
 export const useSetupTrackPlayer = ({ onLoad }) => {

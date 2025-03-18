@@ -25,7 +25,7 @@ export const updateListing = (listing) => {
     data.append("text", listing.text);
     data.append("textFileName", listing.textFileName);
     data.append("textFilePath", listing.textFilePath);
-    data.append("fileID", listing.fileID);
+    data.append("fileURL", listing.fileURL);
 
     return client.post(updatetextendpoint, data);
 };

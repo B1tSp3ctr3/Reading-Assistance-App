@@ -1,11 +1,12 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import React from "react";
 import { useActiveTrack } from "react-native-track-player";
 import { View } from "react-native";
 import Icon from "./Icon";
 import colors from "../config/colors";
 import AppText from "./Text";
-import { PlayerControls, PlayPauseButton } from "./PlayerControls";
-import { SkipToNextButton } from "./PlayerControls";
+import { PlayerControls } from "./PlayerControls";
+// import { SkipToNextButton } from "./PlayerControls";
 
 export const FloatingPlayer = ({ style }) => {
     const activeTrack = useActiveTrack();
@@ -35,7 +36,7 @@ export const FloatingPlayer = ({ style }) => {
         </TouchableOpacity>
     );
 };
-styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         alignItems: "center",

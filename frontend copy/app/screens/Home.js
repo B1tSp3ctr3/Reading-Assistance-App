@@ -10,7 +10,6 @@ import colors from "../config/colors";
 import ListItemSeparator from "../components/ListItemSeparator";
 import useApi from "../hooks/useApi";
 import { getListings } from "../api/listings";
-import { getAudio } from "../api/tts";
 import { useNavigationSearch } from "../hooks/useNavigationSearch";
 import { titleFilter } from "../helpers/filter";
 function Home({ navigation }) {
@@ -21,7 +20,6 @@ function Home({ navigation }) {
     });
     const [refreshing, setRefreshing] = useState(false);
     const getListingsApi = useApi(getListings);
-    const getAudioApi = useApi(getAudio);
     useEffect(() => {
         const unsubscribeFocus = navigation.addListener("focus", () => {
             getListingsApi.request();
@@ -33,14 +31,8 @@ function Home({ navigation }) {
         await getListingsApi.request();
         setRefreshing(false);
     };
-    const handlePress = async (fileID) => {
-        const result = await getAudioApi.request(fileID);
-        if (!result.ok) {
-            alert("Could not get the audio.");
-            console.log(result.problem);
-            return;
-        }
-        console.log(result.data);
+    const handlePress = (item) => {
+        console.log(item);
     };
     const filteredListings = useMemo(() => {
         if (!getListingsApi.data || !getListingsApi.data.texts) return [];
@@ -80,8 +72,9 @@ function Home({ navigation }) {
                             />
                         }
                         onPress={() => {
-                            handlePress(item.fileID);
+                            handlePress(item);
                         }}
+                        uri={item.fileURL}
                     />
                 )}
                 refreshing={refreshing}
