@@ -4,6 +4,7 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
 import colors from "../config/colors";
 import AppText from "./Text";
+import { useActiveTrack } from "react-native-track-player";
 
 function ListItem({
     title,
@@ -12,16 +13,20 @@ function ListItem({
     image,
     ImageInput,
     onPress,
+    uri,
 }) {
-    isActive = false;
+    const isActive = useActiveTrack()?.url === uri;
     return (
         <TouchableHighlight onPress={onPress}>
-            <View style={styles.container}>
+            <View style={[styles.container, isActive && styles.activeContainer]}>
                 {IconComponent}
                 {ImageInput}
                 {image && <Image style={styles.image} source={image} />}
                 <View style={styles.subcontainer}>
-                    <AppText style={styles.title} numberOfLines={1}>
+                    <AppText
+                        style={[styles.title, isActive && styles.activeTitle]}
+                        numberOfLines={1}
+                    >
                         {title}
                     </AppText>
                     {subtitle ? (
@@ -31,7 +36,7 @@ function ListItem({
                     ) : null}
                 </View>
                 <FontAwesome5
-                    name={"ellipsis-v"}
+                    name={"ellipsis-h"}
                     size={20}
                     color={isActive ? colors.primary : colors.mediumgrey}
                 />
@@ -39,12 +44,28 @@ function ListItem({
         </TouchableHighlight>
     );
 }
+
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         padding: 10,
         backgroundColor: colors.secondary,
         alignItems: "center",
+    },
+    // New style for active items
+    activeContainer: {
+        backgroundColor: colors.lightPrimary, // adjust as needed
+        borderWidth: 2,
+        borderColor: colors.primary,
+        // Optionally add shadow or elevation for Android
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 2,
+        elevation: 3,
+    },
+    activeTitle: {
+        color: colors.primary,
     },
     subcontainer: {
         alignItems: "flex-start",
@@ -54,7 +75,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         flex: 1,
     },
-
     title: {
         fontWeight: "bold",
         fontSize: 19,

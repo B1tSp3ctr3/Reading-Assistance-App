@@ -1,18 +1,16 @@
-import { useEffect, useState, useMemo } from "react";
-import React from "react";
-import { View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
-
-import Text from "../components/Text";
-import Button from "../components/Button";
-import ListItem from "../components/ListItem";
-import Icon from "../components/Icon";
-import colors from "../config/colors";
-import ListItemSeparator from "../components/ListItemSeparator";
-import useApi from "../hooks/useApi";
+import React, { useEffect, useMemo, useState } from "react";
+import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
+import TrackPlayer from "react-native-track-player";
 import { getListings } from "../api/listings";
-import { getAudio } from "../api/tts";
-import { useNavigationSearch } from "../hooks/useNavigationSearch";
+import Button from "../components/Button";
+import Icon from "../components/Icon";
+import ListItem from "../components/ListItem";
+import ListItemSeparator from "../components/ListItemSeparator";
+import Text from "../components/Text";
+import colors from "../config/colors";
 import { titleFilter } from "../helpers/filter";
+import useApi from "../hooks/useApi";
+import { useNavigationSearch } from "../hooks/useNavigationSearch";
 function Home({ navigation }) {
     const search = useNavigationSearch({
         searchBarOptions: {
@@ -21,7 +19,6 @@ function Home({ navigation }) {
     });
     const [refreshing, setRefreshing] = useState(false);
     const getListingsApi = useApi(getListings);
-    const getAudioApi = useApi(getAudio);
     useEffect(() => {
         const unsubscribeFocus = navigation.addListener("focus", () => {
             getListingsApi.request();
@@ -33,16 +30,21 @@ function Home({ navigation }) {
         await getListingsApi.request();
         setRefreshing(false);
     };
-    const handlePress = async (fileID) => {
-        setRefreshing(true);
-        const result = getAudioApi(fileID);
-        if (!result.ok) {
-            alert("Could not get the audio.");
-            console.log(result.problem);
-            return;
+    const handlePress = async (item) => {
+        try {
+            console.log(item.fileURL);
+            const track = {
+                id: item._id,
+                url: item.fileURL,
+                title: item.title,
+                type: "mp3",
+                contentType: "audio/mpeg",
+            };
+            await TrackPlayer.load(track);
+            await TrackPlayer.play();
+        } catch (error) {
+            console.error("Playback failed:", error);
         }
-
-        setRefreshing(false);
     };
     const filteredListings = useMemo(() => {
         if (!getListingsApi.data || !getListingsApi.data.texts) return [];
@@ -64,6 +66,11 @@ function Home({ navigation }) {
                 </>
             ) : null}
             <FlatList
+                ListEmptyComponent={
+                    <View>
+                        <Text>No documents found.</Text>
+                    </View>
+                }
                 contentContainerStyle={{ paddingTop: 10, paddingBottom: 128 }}
                 ListFooterComponent={ListItemSeparator}
                 ListHeaderComponent={ListItemSeparator}
@@ -82,8 +89,9 @@ function Home({ navigation }) {
                             />
                         }
                         onPress={() => {
-                            handlePress(item.fileID);
+                            handlePress(item);
                         }}
+                        uri={item.fileURL}
                     />
                 )}
                 refreshing={refreshing}
