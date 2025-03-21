@@ -1,7 +1,6 @@
 import client from "./client";
 
-const textEndpoint = "tts/speak/"; // Endpoint to post text
-const speechEndpoint = "audio/audio/"; // Endpoint to get audio
+const textEndpoint = "tts2/speak"; // Endpoint to post text
 
 export const tts = (textData) => {
     // Create FormData for the text endpoint
@@ -9,11 +8,6 @@ export const tts = (textData) => {
     data.append("text", textData);
     return client.post(textEndpoint, data);
 };
-export const getAudio = (fileID) => {
-    // Get the audio file using the fileId
-    return client.get(`${speechEndpoint}${fileID}`);
-};
 export default {
     tts,
-    getAudio,
 };

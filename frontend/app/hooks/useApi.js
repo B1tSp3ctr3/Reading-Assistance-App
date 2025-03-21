@@ -1,8 +1,7 @@
-import React from "react";
 import { useState } from "react";
 
 const useApi = (apiFunc) => {
-    const [data, setData] = React.useState([]);
+    const [data, setData] = useState([]);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
     const request = async (...args) => {

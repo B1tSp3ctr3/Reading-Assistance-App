@@ -1,20 +1,24 @@
-import { useEffect, useState } from "react";
-import React from "react";
-import { View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
-
-import Text from "../components/Text";
+import React, { useEffect, useMemo, useState } from "react";
+import { ActivityIndicator, FlatList, StyleSheet, View } from "react-native";
+import TrackPlayer from "react-native-track-player";
+import { getListings } from "../api/listings";
 import Button from "../components/Button";
-import ListItem from "../components/ListItem";
 import Icon from "../components/Icon";
-import colors from "../config/colors";
+import ListItem from "../components/ListItem";
 import ListItemSeparator from "../components/ListItemSeparator";
+import Text from "../components/Text";
+import colors from "../config/colors";
+import { titleFilter } from "../helpers/filter";
 import useApi from "../hooks/useApi";
-import listingsApi from "../api/listings";
-import { getAudio } from "../api/tts";
+import { useNavigationSearch } from "../hooks/useNavigationSearch";
 function Home({ navigation }) {
+    const search = useNavigationSearch({
+        searchBarOptions: {
+            placeholder: "Search documents...",
+        },
+    });
     const [refreshing, setRefreshing] = useState(false);
-    const getListingsApi = useApi(listingsApi.getListings);
-    const getAudioApi = useApi(getAudio);
+    const getListingsApi = useApi(getListings);
     useEffect(() => {
         const unsubscribeFocus = navigation.addListener("focus", () => {
             getListingsApi.request();
@@ -26,17 +30,27 @@ function Home({ navigation }) {
         await getListingsApi.request();
         setRefreshing(false);
     };
-    const handlePress = async (fileID) => {
-        setRefreshing(true);
-        const result = getAudioApi(fileID);
-        if (!result.ok) {
-            alert("Could not get the audio.");
-            console.log(result.problem);
-            return;
+    const handlePress = async (item) => {
+        try {
+            console.log(item.fileURL);
+            const track = {
+                id: item._id,
+                url: item.fileURL,
+                title: item.title,
+                type: "mp3",
+                contentType: "audio/mpeg",
+            };
+            await TrackPlayer.load(track);
+            await TrackPlayer.play();
+        } catch (error) {
+            console.error("Playback failed:", error);
         }
-
-        setRefreshing(false);
     };
+    const filteredListings = useMemo(() => {
+        if (!getListingsApi.data || !getListingsApi.data.texts) return [];
+        if (!search) return getListingsApi.data.texts;
+        return getListingsApi.data.texts.filter(titleFilter(search));
+    }, [search, getListingsApi.data]);
 
     return (
         <View style={styles.container}>
@@ -46,14 +60,21 @@ function Home({ navigation }) {
             {getListingsApi.error ? (
                 <>
                     <Text>Could not retrieve the listings.</Text>
-                    <Button title="Retry" onPress={getListingsApi.request} />
+                    <View style={styles.reload}>
+                        <Button title="Retry" onPress={getListingsApi.request} />
+                    </View>
                 </>
             ) : null}
             <FlatList
+                ListEmptyComponent={
+                    <View>
+                        <Text>No documents found.</Text>
+                    </View>
+                }
                 contentContainerStyle={{ paddingTop: 10, paddingBottom: 128 }}
                 ListFooterComponent={ListItemSeparator}
                 ListHeaderComponent={ListItemSeparator}
-                data={getListingsApi.data.texts}
+                data={filteredListings}
                 keyExtractor={(item) => item._id}
                 renderItem={({ item }) => (
                     <ListItem
@@ -68,8 +89,9 @@ function Home({ navigation }) {
                             />
                         }
                         onPress={() => {
-                            handlePress(item.fileID);
+                            handlePress(item);
                         }}
+                        uri={item.fileURL}
                     />
                 )}
                 refreshing={refreshing}
@@ -84,6 +106,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors.secondary,
+    },
+    reload: {
+        flex: 1,
+        width: "80%",
+        alignSelf: "center",
+        top: 10,
     },
 });
 
