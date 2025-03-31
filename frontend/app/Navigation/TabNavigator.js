@@ -7,7 +7,7 @@ import { FloatingPlayer } from "../components/FloatingPlayer";
 import colors from "../config/colors";
 import Home from "../screens/Home";
 import NewDoc from "../screens/NewDoc";
-
+import ListeningIndicator from "../components/ListeningIndicator";
 const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
@@ -87,6 +87,7 @@ const TabNavigator = () => {
                 />
             </Tab.Navigator>
             <FloatingPlayer style={[styles.floatingPlayer, { zIndex: 1 }]} />
+            <ListeningIndicator />
         </>
     );
 };
