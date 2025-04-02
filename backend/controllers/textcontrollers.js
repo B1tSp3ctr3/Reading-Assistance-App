@@ -1,7 +1,6 @@
 import Tesseract from "tesseract.js";
 import path from "path";
 import fs from "fs";
-import Text from "../models/text.js";
 
 export const recognizeText = async (req, res) => {
   // console.log(req);
@@ -36,33 +35,35 @@ export const recognizeText = async (req, res) => {
 
     // const result = await Tesseract.recognize(image, "eng");
     // console.log(result.data.text);
-
+    if(!text){
+      return res.status(500).json({ error: "No text is recognized" });
+    }
     // const textFileName = fileName.substring(0, fileName.lastIndexOf('.')) + '.txt'; // Remove the image extension and add '.txt'
     const timestamp = Date.now(); // Get current timestamp
     const textFileName = `${timestamp}.txt`;
     const textFilePath = path.join("./texts", textFileName);
 
     // Ensuring the "texts" folder exists (creating it if it doesn't)
-    const textDir = path.join("./texts");
-    if (!fs.existsSync(textDir)) {
-      fs.mkdirSync(textDir, { recursive: true }); // Any necessary parent directories are created
-    }
+    // const textDir = path.join("./texts");
+    // if (!fs.existsSync(textDir)) {
+      // fs.mkdirSync(textDir, { recursive: true }); // Any necessary parent directories are created
+    // }
 
-    fs.writeFileSync(textFilePath, text);
+    // fs.writeFileSync(textFilePath, text);
 
    // storing the text in the database
-    try {
-      const newText = new Text({
-        title: title,
-        text: text,
-        textFileName: textFileName,
-        textFilePath: textFilePath,
-      });
-      await newText.save();
-    } catch (error) {
-      console.error("Error saving text to database:", error);
-      return res.status(500).json({ error: "Error saving text to database" });
-    }
+    // try {
+    //   const newText = new Text({
+    //     title: title,
+    //     text: text,
+    //     textFileName: textFileName,
+    //     textFilePath: textFilePath,
+    //   });
+    //   await newText.save();
+    // } catch (error) {
+    //   console.error("Error saving text to database:", error);
+    //   return res.status(500).json({ error: "Error saving text to database" });
+    // }
 
     return res.json({
       text: text,

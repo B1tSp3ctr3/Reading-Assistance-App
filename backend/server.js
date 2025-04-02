@@ -1,33 +1,29 @@
 import express from "express";
 import dotenv from "dotenv";
-import cors from "cors";
+// import cors from "cors";
 import bodyParser from "body-parser";
 import connectDB from "./config/db.js";
-import authRoutes from "./routes/authroutes.js";
 import textRoutes from "./routes/textroutes.js";
 import recognisedTextRoutes from "./routes/recognisedTextRoutes.js";
-import ttsRoutes from "./routes/ttsroutes.js";
-import audioRoutes from "./routes/audioroutes.js";
+import testSaveRoutes from "./routes/textSaveRoutes.js";
+import ttsRoutes2 from "./routes/ttsroutes2.js";
+import deleteTextRoutes from "./routes/deleteTextRoute.js";
 
-// import mongoose from "mongoose";
-
-// mongoose.connect("moongodb://localhost:27017/ReadingAssitanceApp", {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// })
-// .then(() => {;
 dotenv.config();
 connectDB();
-
+const audioDir = "./public/audio";
 const app = express();
+// app.use(cors({ origin: "*" }));  // Allow requests from any domain
 
-app.use(cors());
+// app.use(cors());
 app.use(bodyParser.json());
-app.use("/auth", authRoutes);
+// app.use("/auth", authRoutes);
 app.use("/text", textRoutes);
 app.use("/recognisedtext", recognisedTextRoutes);
-app.use("/tts", ttsRoutes);
-app.use("/audio", audioRoutes);
+app.use("/database", testSaveRoutes);
+app.use("/tts2", ttsRoutes2);
+app.use("/audio", express.static(audioDir));
+app.use("/deleteText", deleteTextRoutes);
 
 
 const PORT = process.env.PORT || 5001;

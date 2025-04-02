@@ -33,3 +33,4 @@ const getGFS = () => {
 // Export both connectDB and the getter for gfs
 export default connectDB;
 export { getGFS };
+

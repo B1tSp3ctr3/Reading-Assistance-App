@@ -2,20 +2,20 @@ import mongoose from "mongoose";
 
 export const audioController = async (req, res) => {
     try {
-        const { fileId } = req.params;
+        const { fileURL } = req.params;
 
         // Ensure the database connection is established
         if (!mongoose.connection.db) {
             return res.status(500).json({ error: "Database connection not established" });
         }
 
-        // Validate fileId format before converting to ObjectId
-        if (!mongoose.Types.ObjectId.isValid(fileId)) {
-            return res.status(400).json({ error: "Invalid file ID format" });
+        // Validate fileURL format before converting to ObjectId
+        if (!mongoose.Types.ObjectId.isValid(fileURL)) {
+            return res.status(400).json({ error: "Invalid fileURL format" });
         }
 
-        // Convert fileId to ObjectId using correct approach
-        const objectId = new mongoose.Types.ObjectId(fileId.toString()); 
+        // Convert fileURL to ObjectId using correct approach
+        const objectId = new mongoose.Types.ObjectId(fileURL.toString()); 
 
         // Create GridFS bucket instance
         const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {

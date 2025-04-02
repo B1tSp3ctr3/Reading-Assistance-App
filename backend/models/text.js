@@ -18,6 +18,10 @@ const TextSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    fileURL: {
+      type: String,
+      required: true,
+    }
   },
   { timestamps: true } // Adds createdAt and updatedAt timestamps
 );
