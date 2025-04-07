@@ -1,0 +1,4 @@
+The Frontman hates the widespread misconception, such that the quadtree can perform range queries in O(log 1) time when there are n
+leaf nodes inside the region. In fact, sometimes it is necessary to query much more than O(log 1) regions for this, and the time
+complexity is O(n) in some extreme cases. Thus, the Frontman came up with this task to educate you about this worst case of the data
+structure.

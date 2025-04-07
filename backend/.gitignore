@@ -1,0 +1,5 @@
+reading-assitance-app-service-key.json
+node_modules/
+.env
+.git/objects
+package-lock.json

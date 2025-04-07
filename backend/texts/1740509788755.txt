@@ -1,0 +1,4 @@
+= client server architecture final.pdf November 24, 2023
+= django lecture.pdf November 7, 2022
+= Django Views and URLconfs.pdf November 7, 2022
+= Socket programming .pdf November 23, 2023
