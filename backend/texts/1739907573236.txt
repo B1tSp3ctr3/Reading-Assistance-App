@@ -1,0 +1,14 @@
+To present both software and hardware solutions of the
+critical-section problem
+
+To examine several classical process-synchronization
+problems
+
+To present both software and hardware solutions of the
+critical-section problem
+
+To examine several classical process-synchronization
+problems
+
+To explore several tools that are used to solve process
+synchronization problems

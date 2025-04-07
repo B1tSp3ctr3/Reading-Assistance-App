@@ -1,0 +1,18 @@
+22.13 End A of the rod can only move horizon-
+tally. Since there is no horizontal force on
+the bar, its mass centre C can only move
+Vertically at the instant when the string BE.
+just breaks. The normal lines to the two
+Velocity vectors intersect at A. Hence, A
+is the instantaneous centre when the string
+just breaks. Therefore, from kinemat-
+ics, (a where a is the tangential
+acceleration of the mass cenire. The nor-
+mal acceleration is zero because the initial
+velocity of the rod is zero (a, = Ro?).
+
+0 a
+i be
+A EE B
+= a
+SF, =ma,=mg-T=ma fi)
