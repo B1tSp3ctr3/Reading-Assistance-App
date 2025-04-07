@@ -4,6 +4,7 @@ import { Platform } from "react-native";
 import extractAssetFile from "./AssetExtractor";
 import TrackPlayer from "react-native-track-player";
 import { handleForward, handleReplay } from "../components/PlayerControls";
+import * as Speech from "expo-speech";
 // Define empty callbacks (you can add your own logic later).
 function wakeWordCallback(keywordIndex) {
     console.log("Wake word detected at index:", keywordIndex);
@@ -15,19 +16,31 @@ function inferenceCallback(inference) {
     if (inference._isUnderstood) {
         console.log("Command understood:", inference._intent);
         if (inference._intent === "play") {
-            TrackPlayer.play();
+            Speech.speak("Playing track", {
+                onDone: () => {
+                    TrackPlayer.play();
+                },
+            });
         } else if (inference._intent === "pause") {
-            TrackPlayer.pause();
-        } else if (inference._intent === "seek") {
+            Speech.speak("Pausing track", {
+                onDone: () => {
+                    TrackPlayer.pause();
+                },
+            });
+        } else if (inference._intent === "forward") {
             handleForward();
         } else if (inference._intent === "rewind") {
             handleReplay();
         } else if (inference._intent === "help") {
-            console.log("Help command detected");
-        } else if (inference._intent === "info") {
-            console.log("Info command detected");
+            const helpMessage = `Here are the available voice commands:
+      - Say "play" to start playing the current track.
+      - Say "pause" to pause the track.
+      - Say "forward" to skip forward 10 seconds.
+      - Say "rewind" to rewind 10 seconds .`;
+            Speech.speak(helpMessage);
         } else {
             console.log("Command not understood:", inference._intent);
+            Speech.speak("Command not understood, please try again");
         }
     }
 }

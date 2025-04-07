@@ -12,7 +12,6 @@ import useApi from "../hooks/useApi";
 import Screen from "../components/Screen";
 import { tts } from "../api/tts";
 import apiClient from "../api/client";
-import colors from "../config/colors";
 import AppText from "../components/Text";
 const validationSchema = Yup.object().shape({
     title: Yup.string().required().min(1).label("Title"),

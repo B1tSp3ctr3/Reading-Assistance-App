@@ -6,7 +6,7 @@ import colors from "../config/colors";
 export const handleForward = async () => {
     try {
         const position = await TrackPlayer.getPosition();
-        await TrackPlayer.seekTo(position + 5);
+        await TrackPlayer.seekTo(position + 10);
     } catch (error) {
         console.error("Error seeking forward:", error);
     }
@@ -16,7 +16,7 @@ export const handleForward = async () => {
 export const handleReplay = async () => {
     try {
         const position = await TrackPlayer.getPosition();
-        await TrackPlayer.seekTo(Math.max(0, position - 5));
+        await TrackPlayer.seekTo(Math.max(0, position - 10));
     } catch (error) {
         console.error("Error seeking backward:", error);
     }
@@ -35,7 +35,7 @@ export const PlayerControls = ({ style }) => {
 export const ForwardButton = ({ style, iconSize = 30 }) => (
     <View style={[{ height: iconSize }, style]}>
         <TouchableOpacity activeOpacity={0.85} onPress={handleForward}>
-            <MaterialIcons name="forward-5" size={iconSize} color={colors.neutral} />
+            <MaterialIcons name="forward-10" size={iconSize} color={colors.neutral} />
         </TouchableOpacity>
     </View>
 );
@@ -43,7 +43,7 @@ export const ForwardButton = ({ style, iconSize = 30 }) => (
 export const ReplayButton = ({ style, iconSize = 30 }) => (
     <View style={[{ height: iconSize }, style]}>
         <TouchableOpacity activeOpacity={0.85} onPress={handleReplay}>
-            <MaterialIcons name="replay-5" size={iconSize} color={colors.neutral} />
+            <MaterialIcons name="replay-10" size={iconSize} color={colors.neutral} />
         </TouchableOpacity>
     </View>
 );
